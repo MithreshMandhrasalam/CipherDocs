@@ -570,7 +570,7 @@ app.post('/api/webauthn/register/options', authenticateToken, (req, res) => {
     
     const options = {
         challenge: uuidv4(), // Simplified challenge
-        rp: { name: "Document Access System", id: "localhost" },
+        rp: { name: "Document Access System", id: req.hostname },
         user: {
             id: Buffer.from(user.id).toString('base64').replace(/\+/g, "-").replace(/\//g, "_").replace(/=/g, ""),
             name: user.username,
@@ -630,7 +630,7 @@ app.post('/api/webauthn/login/options', (req, res) => {
 
     const options = {
         challenge: uuidv4(),
-        rpId: "localhost",
+        rpId: req.hostname,
         allowCredentials,
         userVerification: "required",
         timeout: 60000
@@ -706,15 +706,24 @@ async function initializeSampleData() {
     console.log('   - employee / employee123 (Employee)');
 }
 
-// Start server
-app.listen(PORT, async () => {
-    console.log('\n🚀 Document Access Request System Server');
-    console.log('==========================================');
-    console.log(`Server running on http://localhost:${PORT}`);
-    console.log('==========================================\n');
+// Initialize sample data
+initializeSampleData();
 
-    initializeSampleData();
+// Start server locally (if not on Vercel)
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+    app.listen(PORT, async () => {
+        console.log('\n🚀 Document Access Request System Server');
+        console.log('==========================================');
+        console.log(`Server running on http://localhost:${PORT}`);
+        console.log('==========================================\n');
+        
+        try {
+            await open(`http://localhost:${PORT}`);
+        } catch (e) {
+            console.log("Could not auto-open browser in this environment.");
+        }
+    });
+}
 
-    // 🔥 AUTO OPEN BROWSER
-    await open(`http://localhost:${PORT}`);
-});
+// Export the Express API for Vercel
+module.exports = app;
