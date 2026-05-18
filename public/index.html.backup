@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Document Access Request System</title>
+    <meta name="description" content="Enterprise-grade secure document management with multi-factor authentication, encryption, and granular access control">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Background Animation -->
+    <div class="background-animation">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Main Container -->
+    <div class="container" id="app">
+        <!-- Login/Register Section -->
+        <div class="auth-section active" id="authSection">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <div class="logo">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                    </div>
+                    <h1>Secure Document Access</h1>
+                    <p class="tagline">Enterprise-Grade Security & Access Control</p>
+                </div>
+
+                <!-- Tab Navigation -->
+                <div class="auth-tabs">
+                    <button class="tab-btn active" data-tab="login">Login</button>
+                    <button class="tab-btn" data-tab="register">Register</button>
+                </div>
+
+                <!-- Login Form -->
+                <div class="auth-form active" id="loginForm">
+                    <form id="loginFormElement">
+                        <div class="form-group">
+                            <label for="loginUsername">Username</label>
+                            <input type="text" id="loginUsername" placeholder="Enter your username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>Sign In</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Register Form -->
+                <div class="auth-form" id="registerForm">
+                    <form id="registerFormElement">
+                        <div class="form-group">
+                            <label for="regUsername">Username</label>
+                            <input type="text" id="regUsername" placeholder="Choose a username" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="regEmail">Email</label>
+                            <input type="email" id="regEmail" placeholder="your.email@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="regPassword">Password</label>
+                            <input type="password" id="regPassword" placeholder="Create a strong password" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="regRole">Role</label>
+                            <select id="regRole" required>
+                                <option value="">Select your role</option>
+                                <option value="employee">Employee</option>
+                                <option value="manager">Manager</option>
+                                <option value="admin">Admin</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span>Create Account</span>
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M5 12h14M12 5l7 7-7 7"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Security Features Badge -->
+                <div class="security-badges">
+                    <div class="badge">🔐 Multi-Factor Auth</div>
+                    <div class="badge">🔒 AES-256 Encryption</div>
+                    <div class="badge">✅ Digital Signatures</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OTP Verification Section -->
+        <div class="auth-section" id="otpSection">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <div class="logo">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0110 0v4"/>
+                        </svg>
+                    </div>
+                    <h1>Two-Factor Authentication</h1>
+                    <p class="tagline">Enter the OTP sent to your email</p>
+                </div>
+
+                <form id="otpFormElement">
+                    <div class="form-group">
+                        <label for="otpInput">One-Time Password</label>
+                        <input type="text" id="otpInput" placeholder="Enter 6-digit OTP" maxlength="6" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <span>Verify OTP</span>
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 12h14M12 5l7 7-7 7"/>
+                        </svg>
+                    </button>
+                </form>
+
+                <div class="info-box">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="10"/>
+                        <line x1="12" y1="16" x2="12" y2="12"/>
+                        <line x1="12" y1="8" x2="12.01" y2="8"/>
+                    </svg>
+                    <p>Check your email for the verification code. It will expire in 10 minutes.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div class="dashboard-section" id="dashboardSection">
+            <!-- Sidebar -->
+            <div class="dashboard-sidebar">
+                <div class="sidebar-header">
+                    <div class="sidebar-logo">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <div class="sidebar-title" id="sidebarAppTitle">SECURE DOC</div>
+                    <div class="sidebar-subtitle">Access Portal</div>
+                </div>
+
+                <nav class="sidebar-nav">
+                    <div class="nav-item" data-section="overview">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"/>
+                            <rect x="14" y="3" width="7" height="7"/>
+                            <rect x="14" y="14" width="7" height="7"/>
+                            <rect x="3" y="14" width="7" height="7"/>
+                        </svg>
+                        Dashboard
+                    </div>
+
+                    <div class="nav-item active" data-section="profile">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                            <circle cx="12" cy="7" r="4"/>
+                        </svg>
+                        My Profile
+                    </div>
+
+                    <div class="nav-item" data-section="verification">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                        Security
+                    </div>
+
+                    <div class="nav-item" data-section="secure-comms">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/>
+                            <polyline points="13 2 13 9 20 9"/>
+                        </svg>
+                        Documents
+                    </div>
+                </nav>
+
+                <div class="sidebar-footer">
+                    <div class="session-info">
+                        <div class="session-label">Current Session</div>
+                        <div class="session-id" id="sessionId">LOADING...</div>
+                    </div>
+                    <button class="terminate-btn" id="terminateSessionBtn">Terminate Session</button>
+                </div>
+            </div>
+
+            <!-- Main Dashboard Content Wrapper -->
+            <div class="dashboard-main-wrapper">
+                <!-- Header -->
+                <header class="dashboard-header">
+                    <div class="header-content">
+                        <div class="welcome-section">
+                            <span class="welcome-icon">👋</span>
+                            <div>
+                                <div class="welcome-text">Welcome back,</div>
+                                <div class="welcome-name" id="welcomeUserName">User</div>
+                            </div>
+                        </div>
+                        <div class="status-badges">
+                            <div class="status-badge rank" id="rankBadge">EMPLOYEE</div>
+                            <div class="status-badge clearance" id="clearanceBadge">TIER-2</div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Main Content -->
+                <main class="dashboard-main">
+                    <!-- Profile Content (My Profile) -->
+                    <div class="dashboard-content active" id="profileContent">
+                        <div class="profile-container">
+                            <div class="profile-qr-section">
+                                <div class="qr-card">
+                                    <canvas id="profileQRCode"></canvas>
+                                </div>
+                            </div>
+                            <div class="profile-info-section">
+                                <div class="profile-header">
+                                    <h2 class="profile-name" id="profileUserName">USER</h2>
+                                    <div class="profile-details">
+                                        <div class="detail-item">
+                                            <div class="detail-label">Role</div>
+                                            <div class="detail-value rank" id="profileRank">Document User</div>
+                                        </div>
+                                        <div class="detail-item">
+                                            <div class="detail-label">Access Level</div>
+                                            <div class="detail-value clearance" id="profileClearance">TIER-1</div>
+                                        </div>
+                                        <div class="detail-item">
+                                            <div class="detail-label">Account Status</div>
+                                            <div class="detail-value status" id="profileStatus">ACTIVE</div>
+                                        </div>
+                                    </div>
+                                    <div class="profile-status-message">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <circle cx="12" cy="12" r="10"/>
+                                            <line x1="12" y1="16" x2="12" y2="12"/>
+                                            <line x1="12" y1="8" x2="12.01" y2="8"/>
+                                        </svg>
+                                        <span class="profile-status-text" id="profileMessage">User is authorized for document access operations.</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Overview Content -->
+                    <div class="dashboard-content active" id="overviewContent">
+                        <!-- Stats Cards -->
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <div class="stat-icon" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/>
+                                        <polyline points="13 2 13 9 20 9"/>
+                                    </svg>
+                                </div>
+                                <div class="stat-content">
+                                    <h3>Total Documents</h3>
+                                    <p class="stat-value" id="totalDocs">0</p>
+                                </div>
+                            </div>
+
+                            <div class="stat-card">
+                                <div class="stat-icon" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+                                        <polyline points="14 2 14 8 20 8"/>
+                                        <line x1="16" y1="13" x2="8" y2="13"/>
+                                        <line x1="16" y1="17" x2="8" y2="17"/>
+                                        <polyline points="10 9 9 9 8 9"/>
+                                    </svg>
+                                </div>
+                                <div class="stat-content">
+                                    <h3>Pending Requests</h3>
+                                    <p class="stat-value" id="pendingRequests">0</p>
+                                </div>
+                            </div>
+
+                            <div class="stat-card">
+                                <div class="stat-icon" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 11.08V12a10 10 0 11-5.93-9.14"/>
+                                        <polyline points="22 4 12 14.01 9 11.01"/>
+                                    </svg>
+                                </div>
+                                <div class="stat-content">
+                                    <h3>Approved Requests</h3>
+                                    <p class="stat-value" id="approvedRequests">0</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Tabs -->
+                <div class="dashboard-tabs">
+                    <button class="dashboard-tab active" data-section="documents">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M13 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V9z"/>
+                            <polyline points="13 2 13 9 20 9"/>
+                        </svg>
+                        Documents
+                    </button>
+                    <button class="dashboard-tab" data-section="requests">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"/>
+                            <polyline points="12 6 12 12 16 14"/>
+                        </svg>
+                        Access Requests
+                    </button>
+                    <button class="dashboard-tab" data-section="acl">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+                            <path d="M7 11V7a5 5 0 0110 0v4"/>
+                        </svg>
+                        Access Control
+                    </button>
+                    <button class="dashboard-tab" data-section="encryption">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                        Encryption
+                    </button>
+                </div>
+
+                <!-- Documents Section (inside overview) -->
+                <div class="dashboard-content active" id="documentsContent">
+                    <div class="content-header">
+                        <h3>Document Management</h3>
+                        <button class="btn btn-primary" id="uploadDocBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                            </svg>
+                            Upload Document
+                        </button>
+                    </div>
+                    <div class="documents-grid" id="documentsGrid">
+                        <!-- Documents will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Requests Section (inside overview) -->
+                <div class="dashboard-content" id="requestsContent">
+                    <div class="content-header">
+                        <h3>Access Requests</h3>
+                    </div>
+                    <div class="requests-list" id="requestsList">
+                        <!-- Requests will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Access Control Section (inside overview) -->
+                <div class="dashboard-content" id="aclContent">
+                    <div class="content-header">
+                        <h3>Access Control Matrix</h3>
+                        <p class="description">View and manage permissions for different roles and resources</p>
+                    </div>
+                    <div class="acl-matrix" id="aclMatrix">
+                        <!-- ACL Matrix will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Encryption tools (inside overview) -->
+                <div class="dashboard-content" id="encryptionContent">
+                    <div class="content-header">
+                        <h3>Encryption & Security Tools</h3>
+                        <p class="description">Test encryption, hashing, and encoding mechanisms</p>
+                    </div>
+                    </div>
+            </div>
+            <!-- END of overviewContent -->
+
+                <!-- Standalone Encryption Section (for Security sidebar) -->
+                <div class="dashboard-content" id="securityToolsContent">
+                <div class="dashboard-content active" id="documentsContent">
+                    <div class="content-header">
+                        <h3>Document Management</h3>
+                        <button class="btn btn-primary" id="uploadDocBtn">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
+                            </svg>
+                            Upload Document
+                        </button>
+                    </div>
+                    <div class="documents-grid" id="documentsGrid">
+                        <!-- Documents will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Requests Section -->
+                <div class="dashboard-content" id="requestsContent">
+                    <div class="content-header">
+                        <h3>Access Requests</h3>
+                    </div>
+                    <div class="requests-list" id="requestsList">
+                        <!-- Requests will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Access Control Section -->
+                <div class="dashboard-content" id="aclContent">
+                    <div class="content-header">
+                        <h3>Access Control Matrix</h3>
+                        <p class="description">View and manage permissions for different roles and resources</p>
+                    </div>
+                    <div class="acl-matrix" id="aclMatrix">
+                        <!-- ACL Matrix will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Encryption Section -->
+                <div class="dashboard-content" id="encryptionContent">
+                    <div class="content-header">
+                        <h3>Encryption & Security Tools</h3>
+                        <p class="description">Test encryption, hashing, and encoding mechanisms</p>
+                    </div>
+                    
+                    <div class="encryption-tools">
+                        <!-- Encryption Tool -->
+                        <div class="tool-card">
+                            <h4>🔐 Document Encryption (AES-256)</h4>
+                            <div class="form-group">
+                                <label>Text to Encrypt</label>
+                                <textarea id="encryptInput" rows="3" placeholder="Enter sensitive text to encrypt"></textarea>
+                            </div>
+                            <button class="btn btn-primary" id="encryptBtn">Encrypt</button>
+                            <div class="form-group">
+                                <label>Encrypted Output (Base64 Encoded)</label>
+                                <textarea id="encryptOutput" rows="3" readonly placeholder="Encrypted data will appear here"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Encryption Key (Generated)</label>
+                                <input type="text" id="encryptionKey" readonly placeholder="Key will be generated">
+                            </div>
+                        </div>
+
+                        <!-- Decryption Tool -->
+                        <div class="tool-card">
+                            <h4>🔓 Document Decryption</h4>
+                            <div class="form-group">
+                                <label>Encrypted Text</label>
+                                <textarea id="decryptInput" rows="3" placeholder="Paste encrypted text"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Decryption Key</label>
+                                <input type="text" id="decryptionKey" placeholder="Enter the encryption key">
+                            </div>
+                            <button class="btn btn-primary" id="decryptBtn">Decrypt</button>
+                            <div class="form-group">
+                                <label>Decrypted Output</label>
+                                <textarea id="decryptOutput" rows="3" readonly placeholder="Decrypted data will appear here"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Hash Tool -->
+                        <div class="tool-card">
+                            <h4>🔑 Hash Generator (SHA-256 with Salt)</h4>
+                            <div class="form-group">
+                                <label>Text to Hash</label>
+                                <input type="text" id="hashInput" placeholder="Enter text to hash">
+                            </div>
+                            <button class="btn btn-primary" id="hashBtn">Generate Hash</button>
+                            <div class="form-group">
+                                <label>Salt (Auto-generated)</label>
+                                <input type="text" id="saltOutput" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label>Hash Output</label>
+                                <input type="text" id="hashOutput" readonly>
+                            </div>
+                        </div>
+
+                        <!-- Digital Signature Tool -->
+                        <div class="tool-card">
+                            <h4>✍️ Digital Signature</h4>
+                            <div class="form-group">
+                                <label>Document Content</label>
+                                <textarea id="signInput" rows="3" placeholder="Enter document content to sign"></textarea>
+                            </div>
+                            <button class="btn btn-primary" id="signBtn">Generate Signature</button>
+                            <div class="form-group">
+                                <label>Digital Signature (HMAC-SHA256)</label>
+                                <input type="text" id="signatureOutput" readonly>
+                            </div>
+                            <button class="btn btn-secondary" id="verifySignBtn" style="margin-top: 10px;">Verify Signature</button>
+                            <div id="verifyResult" style="margin-top: 10px;"></div>
+                        </div>
+
+                        <!-- QR Code Tool -->
+                        <div class="tool-card">
+                            <h4>📱 QR Code Generator</h4>
+                            <div class="form-group">
+                                <label>Text to Encode</label>
+                                <input type="text" id="qrInput" placeholder="Enter text or URL">
+                            </div>
+                            <button class="btn btn-primary" id="generateQRBtn">Generate QR Code</button>
+                            <div class="qr-output" id="qrOutput"></div>
+                        </div>
+                    </div>
+                        </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Upload -->
+    <div class="modal" id="uploadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Upload Document</h3>
+                <button class="modal-close" id="closeUploadModal">&times;</button>
+            </div>
+            <form id="uploadForm">
+                <div class="form-group">
+                    <label for="docTitle">Document Title</label>
+                    <input type="text" id="docTitle" required placeholder="e.g., Financial Report Q4">
+                </div>
+                <div class="form-group">
+                    <label for="docContent">Document Content</label>
+                    <textarea id="docContent" rows="5" required placeholder="Enter document content (will be encrypted)"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="docCategory">Category</label>
+                    <select id="docCategory" required>
+                        <option value="">Select category</option>
+                        <option value="financial">Financial</option>
+                        <option value="hr">Human Resources</option>
+                        <option value="legal">Legal</option>
+                        <option value="technical">Technical</option>
+                        <option value="general">General</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="docClassification">Security Classification</label>
+                    <select id="docClassification" required>
+                        <option value="">Select classification</option>
+                        <option value="public">Public</option>
+                        <option value="internal">Internal</option>
+                        <option value="confidential">Confidential</option>
+                        <option value="restricted">Restricted</option>
+                    </select>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelUpload">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Upload & Encrypt</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <div class="toast-content">
+            <span class="toast-message"></span>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
