@@ -608,26 +608,30 @@ async function loadMessagingUsers() {
     });
     const data = await response.json();
     
-    const select = document.getElementById("msgRecipient");
-    select.innerHTML = '<option value="">Select a user...</option>';
-    
-    data.users.forEach(u => {
-       if (u.username !== state.currentUser.username) {
-          const hasKey = u.hasKey ? "🔑 " : "⚠️ ";
-          const option = document.createElement("option");
-          option.value = u.username;
-          
-          if (!u.hasKey) {
-             option.textContent = `⚠️ ${u.username} (No Keys Set - Click to see why)`;
-             // We do NOT disable it anymore, effectively "Allowing" selection
-             // option.disabled = true; 
-          } else {
-             option.textContent = `${hasKey}${u.username} (${u.role})`;
-          }
-          
-          select.appendChild(option);
-       }
-    });
+    if (response.ok && data && data.users) {
+      const select = document.getElementById("msgRecipient");
+      select.innerHTML = '<option value="">Select a user...</option>';
+      
+      data.users.forEach(u => {
+         if (u.username !== state.currentUser.username) {
+            const hasKey = u.hasKey ? "🔑 " : "⚠️ ";
+            const option = document.createElement("option");
+            option.value = u.username;
+            
+            if (!u.hasKey) {
+               option.textContent = `⚠️ ${u.username} (No Keys Set - Click to see why)`;
+               // We do NOT disable it anymore, effectively "Allowing" selection
+               // option.disabled = true; 
+            } else {
+               option.textContent = `${hasKey}${u.username} (${u.role})`;
+            }
+            
+            select.appendChild(option);
+         }
+      });
+    } else {
+      console.error("Failed to load messaging users:", data ? data.message : "Unknown error");
+    }
   } catch (error) {
     console.error("Error loading users", error);
   }
@@ -639,29 +643,33 @@ async function loadMyMessages() {
        headers: { Authorization: "Bearer " + localStorage.getItem("authToken") },
     });
     const data = await response.json();
-    const inbox = document.getElementById("messagesInbox");
     
-    if (data.messages.length === 0) {
-      inbox.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 1rem;">No messages</p>';
-      return;
+    if (response.ok && data && data.messages) {
+      const inbox = document.getElementById("messagesInbox");
+      
+      if (data.messages.length === 0) {
+        inbox.innerHTML = '<p style="color: var(--text-secondary); text-align: center; padding: 1rem;">No messages</p>';
+        return;
+      }
+      
+      inbox.innerHTML = data.messages.map(msg => `
+        <div class="request-card" 
+             onclick="selectMessage(this)" 
+             data-encrypted="${msg.encryptedContent}"
+             data-sender="${msg.sender}"
+             style="cursor: pointer; transition: all 0.2s;">
+           <div class="request-header">
+              <h4>From: ${msg.sender}</h4>
+              <span style="font-size: 0.8rem; color: var(--text-secondary);">${new Date(msg.timestamp).toLocaleString()}</span>
+           </div>
+           <div style="margin-top: 5px;">
+              <span style="font-size: 0.8rem; color: var(--primary);">👆 Click to Decrypt</span>
+           </div>
+        </div>
+      `).join("");
+    } else {
+      console.error("Failed to load messages:", data ? data.message : "Unknown error");
     }
-    
-    inbox.innerHTML = data.messages.map(msg => `
-      <div class="request-card" 
-           onclick="selectMessage(this)" 
-           data-encrypted="${msg.encryptedContent}"
-           data-sender="${msg.sender}"
-           style="cursor: pointer; transition: all 0.2s;">
-         <div class="request-header">
-            <h4>From: ${msg.sender}</h4>
-            <span style="font-size: 0.8rem; color: var(--text-secondary);">${new Date(msg.timestamp).toLocaleString()}</span>
-         </div>
-         <div style="margin-top: 5px;">
-            <span style="font-size: 0.8rem; color: var(--primary);">👆 Click to Decrypt</span>
-         </div>
-      </div>
-    `).join("");
-    
   } catch (error) {
     console.error("Error loading messages", error);
   }
